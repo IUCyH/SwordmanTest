@@ -21,16 +21,21 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     float walkSpeed;
     float speed;
-    
+
     bool rolling;
-    
+
     public bool IsRolling { get { return rolling; } }
     
+    public void OnStart()
+    {
+        playerTransform = transform;
+    }
+
     public void Move()
     {
         var dir = Input.GetAxisRaw("Horizontal");
         SetMoveSpeed();
-        
+
         playerTransform.Translate(dir * speed * Time.deltaTime * Vector3.right);
 
         SetPlayerForward(dir);
@@ -40,7 +45,7 @@ public class PlayerMove : MonoBehaviour
     public void Rolling()
     {
         float dir = playerTransform.localScale.x;
-        
+
         if (!rolling && Input.GetKeyDown(KeyCode.LeftControl))
         {
             rolling = true;
@@ -57,18 +62,18 @@ public class PlayerMove : MonoBehaviour
     {
         rollTime += Time.deltaTime;
         var progress = rollTime / rollDuration;
-        
+
         if (progress > 1f)
         {
             rolling = false;
             rollTime = 0f;
             playerTransform.rotation = Quaternion.identity;
-            
+
             return;
         }
 
         var angle = progress * 360f;
-        
+
         playerTransform.rotation = Quaternion.Euler(0f, 0f, dir * angle);
         playerTransform.position += -dir * rollSpeed * Time.deltaTime * Vector3.right;
     }
@@ -97,15 +102,10 @@ public class PlayerMove : MonoBehaviour
 
     void SetPlayerForward(float dir)
     {
-        if(dir == 0f) return;
-        
+        if (dir == 0f) return;
+
         var scaleX = dir * -1;
 
         playerTransform.localScale = new Vector3(scaleX, 1f, 1f);
-    }
-
-    void Start()
-    {
-        playerTransform = transform;
     }
 }

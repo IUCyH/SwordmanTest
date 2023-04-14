@@ -6,6 +6,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
+    PlayerSkill playerSkill;
+    [SerializeField]
     PlayerMove playerMove;
     [SerializeField]
     PlayerAttack playerAttack;
@@ -14,6 +16,8 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField]
     PlayerAnimation playerAnimation;
+
+    bool stopAllMovement;
 
     public void StopAllAnimation()
     {
@@ -34,25 +38,38 @@ public class PlayerController : MonoBehaviour
         playerAnimation.SetAnimationSpeed(animSpeedParam, speed);
     }
 
+    public void PauseAllMovement()
+    {
+        stopAllMovement = true;
+        StopAllAnimation();
+    }
+
+    public void ContinueAllMovement()
+    {
+        stopAllMovement = false;
+    }
+
+    void Start()
+    {
+        playerMove.OnStart();
+        playerJump.OnStart();
+        playerSkill.OnStart();
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (!playerJump.Jumping)
-        {
-            playerMove.Rolling();
-        }
-
-        if(!playerMove.IsRolling)
-        {
-            playerMove.Move();
-            playerJump.CheckJump();
-            playerAttack.Attack();
-        }
+        if (stopAllMovement) return;
+  
+        playerSkill.ExecuteSkills();
+        playerMove.Move();
+        playerJump.CheckJump();
+        playerAttack.Attack();
     }
 
     void FixedUpdate()
     {
-        if (playerMove.IsRolling) return;
+        if (stopAllMovement) return;
         
         playerJump.Jump();
     }

@@ -20,6 +20,11 @@ public class PlayerJump : MonoBehaviour
     
     public bool Jumping { get; private set; }
     
+    public void OnStart()
+    {
+        groundLayer = 1 << LayerMask.NameToLayer("Ground");
+    }
+    
     public void CheckJump()
     {
         var ground = IsGround();
@@ -51,10 +56,5 @@ public class PlayerJump : MonoBehaviour
         bool ground = Physics2D.OverlapCircle(feet.position, groundCheckRadius, groundLayer);
 
         return ground;
-    }
-
-    void Start()
-    {
-        groundLayer = 1 << LayerMask.NameToLayer("Ground");
     }
 }
