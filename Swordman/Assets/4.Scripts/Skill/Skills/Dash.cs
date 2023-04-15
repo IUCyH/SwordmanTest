@@ -60,9 +60,9 @@ public class Dash : MonoBehaviour, Skill
         }
     }
 
-    void UseDash(Vector2 dashVector)
+    void UseDash(Vector2 targetVector)
     {
-        var nextDashPos = Vector2.Lerp(player.position, dashVector, dashSpeed);
+        var nextDashPos = Vector2.Lerp(player.position, targetVector, dashSpeed);
 
         player.position = nextDashPos;
     }
