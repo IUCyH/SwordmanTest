@@ -28,15 +28,12 @@ public class Dash : MonoBehaviour, Skill
     float skillDuration;
     float skillTimer;
     
-    bool canUseSkill = true;
     bool executeSkill;
     
     public bool NotReady { get; set; }
     
     public void ExecuteSkill()
     {
-        if (!canUseSkill) return;
-        canUseSkill = false;
         NotReady = true;
         
         var dir = -player.localScale.x;
@@ -55,28 +52,27 @@ public class Dash : MonoBehaviour, Skill
         if (cooldownTimer >= coolDown)
         {
             NotReady = false;
-            canUseSkill = true;
             cooldownTimer = 0f;
         }
     }
 
-    void UseDash(Vector2 targetVector)
+    void UseDash()
     {
-        var nextDashPos = Vector2.Lerp(player.position, targetVector, dashSpeed);
+        var nextDashPos = Vector2.Lerp(player.position, dashVector, dashSpeed);
 
         player.position = nextDashPos;
     }
 
     void Update()
     {
-        if (!canUseSkill)
+        if (NotReady)
         {
             CalculateCooldown();
         }
         
         if (executeSkill)
         {
-            UseDash(dashVector);
+            UseDash();
             
             skillTimer += Time.deltaTime;
             if (skillTimer > skillDuration)

@@ -17,7 +17,9 @@ public class PlayerSkill : MonoBehaviour
     {
         foreach(var dic in skillDic)
         {
-            if (Input.GetKeyDown(dic.Key) && !dic.Value.NotReady)
+            if (dic.Value.NotReady) return;
+            
+            if (Input.GetKeyDown(dic.Key))
             {
                 playerController.PauseAllMovement();
                 dic.Value.ExecuteSkill();

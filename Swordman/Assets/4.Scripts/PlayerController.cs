@@ -19,8 +19,6 @@ public class PlayerController : MonoBehaviour
 
     bool stopAllMovement;
     
-    public bool StopAllMovement { get { return stopAllMovement; } }
-
     public void StopAllAnimation()
     {
         playerAnimation.StopAll();
@@ -43,7 +41,6 @@ public class PlayerController : MonoBehaviour
     public void PauseAllMovement()
     {
         stopAllMovement = true;
-        StopAllAnimation();
     }
 
     public void ContinueAllMovement()
@@ -61,7 +58,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (stopAllMovement) return;
+        if (stopAllMovement)
+        {
+            StopAllAnimation();
+            return;
+        }
         
         playerSkill.ExecuteSkills();
         playerMove.Move();
@@ -71,7 +72,11 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (stopAllMovement) return;
+        if (stopAllMovement)
+        {
+            StopAllAnimation();
+            return;
+        }
         
         playerJump.Jump();
     }
