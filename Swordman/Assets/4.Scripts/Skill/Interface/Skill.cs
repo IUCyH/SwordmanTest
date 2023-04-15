@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface Skill
 {
+    bool NotReady { get; set; }
     void ExecuteSkill();
     void CalculateCooldown();
 }

@@ -31,10 +31,13 @@ public class Dash : MonoBehaviour, Skill
     bool canUseSkill = true;
     bool executeSkill;
     
+    public bool NotReady { get; set; }
+    
     public void ExecuteSkill()
     {
         if (!canUseSkill) return;
         canUseSkill = false;
+        NotReady = true;
         
         var dir = -player.localScale.x;
         dashVector = new Vector2(player.position.x + dashDistance * dir, player.position.y);
@@ -51,6 +54,7 @@ public class Dash : MonoBehaviour, Skill
         
         if (cooldownTimer >= coolDown)
         {
+            NotReady = false;
             canUseSkill = true;
             cooldownTimer = 0f;
         }
@@ -79,6 +83,7 @@ public class Dash : MonoBehaviour, Skill
             {
                 executeSkill = false;
                 skillTimer = 0f;
+                playerController.ContinueAllMovement();
             }
         }
     }

@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     PlayerAnimation playerAnimation;
 
     bool stopAllMovement;
+    
+    public bool StopAllMovement { get { return stopAllMovement; } }
 
     public void StopAllAnimation()
     {
@@ -60,7 +62,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (stopAllMovement) return;
-  
+        
         playerSkill.ExecuteSkills();
         playerMove.Move();
         playerJump.CheckJump();
