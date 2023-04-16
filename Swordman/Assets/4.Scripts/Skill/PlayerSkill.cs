@@ -17,7 +17,7 @@ public class PlayerSkill : MonoBehaviour
     {
         foreach(var dic in skillDic)
         {
-            if (dic.Value.NotReady) return;
+            if (dic.Value.NotReady) continue;
             
             if (Input.GetKeyDown(dic.Key))
             {
