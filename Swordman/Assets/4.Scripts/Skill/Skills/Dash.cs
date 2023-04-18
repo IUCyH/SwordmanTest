@@ -29,12 +29,16 @@ public class Dash : MonoBehaviour, Skill
     float skillTimer;
     
     bool executeSkill;
+    bool canUseSkill;
     
     public bool NotReady { get; set; }
     
     public void ExecuteSkill()
     {
+        if (!canUseSkill) return;
+        
         NotReady = true;
+        canUseSkill = false;
         
         var dir = -player.localScale.x;
         dashVector = new Vector2(player.position.x + dashDistance * dir, player.position.y);
@@ -52,6 +56,7 @@ public class Dash : MonoBehaviour, Skill
         if (cooldownTimer >= coolDown)
         {
             NotReady = false;
+            canUseSkill = true;
             cooldownTimer = 0f;
         }
     }
@@ -65,7 +70,7 @@ public class Dash : MonoBehaviour, Skill
 
     void Update()
     {
-        if (NotReady)
+        if (!canUseSkill)
         {
             CalculateCooldown();
         }
