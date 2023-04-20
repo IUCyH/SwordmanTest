@@ -1033,7 +1033,7 @@ MonoBehaviour:
   player: {fileID: 5958613331667179645}
   cooldownText: {fileID: 280021675}
   dashDistance: 5
-  dashSpeed: 0.05
+  dashSpeed: 0.03
   coolDown: 0.5
   skillDuration: 0.2
 --- !u!212 &5785861982316854125
