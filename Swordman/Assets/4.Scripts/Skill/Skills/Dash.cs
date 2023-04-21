@@ -27,6 +27,7 @@ public class Dash : MonoBehaviour, Skill
     [SerializeField]
     float skillDuration;
     float skillTimer;
+    float dashDir;
     
     bool executeSkill;
     
@@ -36,8 +37,8 @@ public class Dash : MonoBehaviour, Skill
     {
         NotReady = true;
         
-        var dir = -player.localScale.x;
-        dashVector = new Vector2(player.position.x + dashDistance * dir, player.position.y);
+        dashDir = -player.localScale.x;
+        dashVector = new Vector2(player.position.x + dashDistance * dashDir, player.position.y);
         executeSkill = true;
     }
 
@@ -58,6 +59,8 @@ public class Dash : MonoBehaviour, Skill
 
     void UseDash()
     {
+        if (playerController.IsCannotMove(dashDir)) return;
+
         var nextDashPos = Vector2.Lerp(player.position, dashVector, dashSpeed);
 
         player.position = nextDashPos;

@@ -23,7 +23,7 @@ public class MonsterController : MonoBehaviour
         {
             if (knockBack)
             {
-                var dir = player.localScale.x * -1;
+                var dir = -player.localScale.x;
 
                 monster.position += (dir * knockBackSpeed * Time.deltaTime * Vector3.right);
 

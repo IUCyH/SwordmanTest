@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField]
     PlayerAnimation playerAnimation;
+    [SerializeField]
+    PlayerMovementLimit playerMovementLimit;
 
     bool stopAllMovement;
     
@@ -46,6 +48,11 @@ public class PlayerController : MonoBehaviour
     public void ContinueAllMovement()
     {
         stopAllMovement = false;
+    }
+
+    public bool IsCannotMove(float dir)
+    {
+        return playerMovementLimit.IsCannotMove(dir);
     }
 
     void Start()

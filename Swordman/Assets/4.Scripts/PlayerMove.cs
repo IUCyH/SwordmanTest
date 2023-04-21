@@ -8,14 +8,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     PlayerController player;
     Transform playerTransform;
-
-    [SerializeField]
-    float rollTime;
-    [SerializeField]
-    float rollDuration;
-    [SerializeField]
-    float rollSpeed;
-
+    
     [SerializeField]
     float runSpeed;
     [SerializeField]
@@ -34,6 +27,8 @@ public class PlayerMove : MonoBehaviour
     public void Move()
     {
         var dir = Input.GetAxisRaw("Horizontal");
+        if (player.IsCannotMove(dir)) return;
+        
         SetMoveSpeed();
 
         playerTransform.Translate(dir * speed * Time.deltaTime * Vector3.right);
@@ -41,43 +36,7 @@ public class PlayerMove : MonoBehaviour
         SetPlayerForward(dir);
         SetAnimation(dir);
     }
-
-    public void Rolling()
-    {
-        float dir = playerTransform.localScale.x;
-
-        if (!rolling && Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            rolling = true;
-            player.StopAllAnimation();
-        }
-
-        if (rolling)
-        {
-            Roll(dir);
-        }
-    }
-
-    void Roll(float dir)
-    {
-        rollTime += Time.deltaTime;
-        var progress = rollTime / rollDuration;
-
-        if (progress > 1f)
-        {
-            rolling = false;
-            rollTime = 0f;
-            playerTransform.rotation = Quaternion.identity;
-
-            return;
-        }
-
-        var angle = progress * 360f;
-
-        playerTransform.rotation = Quaternion.Euler(0f, 0f, dir * angle);
-        playerTransform.position += -dir * rollSpeed * Time.deltaTime * Vector3.right;
-    }
-
+    
     void SetMoveSpeed()
     {
         var runKeyPressed = Input.GetAxisRaw("Run");
