@@ -48,7 +48,7 @@ public class MonsterController : MonoBehaviour
 
         if (hp <= 0)
         {
-            hpBar.SetAcitveFalse();
+            hpBar.SetActiveFalse();
             gameObject.SetActive(false);
         }
     }

@@ -28,7 +28,7 @@ public class HpBarController : MonoBehaviour
         barImage.fillAmount = hp;
     }
 
-    public void SetAcitveFalse()
+    public void SetActiveFalse()
     {
         gameObject.SetActive(false);
     }
