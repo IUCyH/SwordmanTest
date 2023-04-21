@@ -1227,7 +1227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpBar: {fileID: 1932941252}
   barImage: {fileID: 1585283860}
-  hpBarHeight: 95
+  hpBarHeight: 40
 --- !u!1 &1996307856
 GameObject:
   m_ObjectHideFlags: 0

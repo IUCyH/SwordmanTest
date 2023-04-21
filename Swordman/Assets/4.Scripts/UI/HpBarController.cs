@@ -33,7 +33,7 @@ public class HpBarController : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    void Start()
+    void Awake()
     {
         camera = Camera.main;
     }
