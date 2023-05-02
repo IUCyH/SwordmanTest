@@ -1,0 +1,9 @@
+num = Random()
+
+sum = 0
+
+for(int i = 0; i < table.Length; i++)
+{
+   if(num <= sum + table[i]) return i;
+   sum += table[i]
+}
